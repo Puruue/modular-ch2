@@ -934,7 +934,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FaithPostMinHeapDialogueManager
   dialogueManager: {fileID: 1166681350}
-  proceedPanel: {fileID: 1545083507}
 --- !u!4 &896310434
 Transform:
   m_ObjectHideFlags: 0
@@ -1274,6 +1273,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 187bbd1323ce2ba45a31e48f24dfdac6, type: 3}
   - {fileID: 21300000, guid: 725ae35eec287b445a46259bfbf2c077, type: 3}
   - {fileID: 21300000, guid: 67f9205a6e6f3ff4ca6154ab252ac092, type: 3}
+  - {fileID: 21300000, guid: 851a76bbf2a5a5443bb85e3f500b6b9f, type: 3}
+  - {fileID: 21300000, guid: 5bbd175fb0dd73d47b793d83620befa3, type: 3}
+  - {fileID: 21300000, guid: 14fc2859598c98c47bc39dcfec5075ff, type: 3}
+  - {fileID: 21300000, guid: 4c896dce314d15940bc12ff1e363c262, type: 3}
+  - {fileID: 21300000, guid: 4fbe5b5de0a1bfa4bbbbd9251edfe04c, type: 3}
   allowContainsFallback: 1
   verboseLogs: 1
   supportFlippedUnderscoreFormat: 1

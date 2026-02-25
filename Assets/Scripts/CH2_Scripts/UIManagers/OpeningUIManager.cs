@@ -57,7 +57,7 @@ public class OpeningUIManager : MonoBehaviour
             new DialogueLine("Faith", "Faith_cropped",
                 "I'm Faith."),
 
-            new DialogueLine("Faith", "Faith_cropped",
+            new DialogueLine("Faith", "Confused_Faith",
                 "You guys are the helpers right? The one my agency hired to help organize my stuff."),
 
             new DialogueLine("", "",
@@ -66,13 +66,13 @@ public class OpeningUIManager : MonoBehaviour
             new DialogueLine("Mouse", "Neautral_MOUSE",
                 "This girl don't seem to care about who we are."),
             
-            new DialogueLine("Faith", "Faith_cropped",
+            new DialogueLine("Faith", "Angry_Faith",
                 "I do not have time to know about everyone's backstories here. I am already quite overwhelmed moving into a new place."),
 
-            new DialogueLine("Faith", "Faith_cropped",
+            new DialogueLine("Faith", "Surprised_Faith",
                 "Plus, that play that my agent just thrown me into."),
 
-            new DialogueLine("Faith", "Faith_cropped",
+            new DialogueLine("Faith", "Angry_Faith",
                 "If it weren't such a good look on me to take the role of Beth, I would not have taken the bait."),
 
             new DialogueLine("Faith", "Faith_cropped",
@@ -81,7 +81,7 @@ public class OpeningUIManager : MonoBehaviour
             new DialogueLine("Mouse", "SURPRISED_MOUSE",
                 "You're an actress??"),
 
-            new DialogueLine("Faith", "Faith_cropped",
+            new DialogueLine("Faith", "Confused_Faith",
                 "Surprised? I have yet to get my break into the forefront of the industry. That's why when my agent pitched this role as an emergency due to the original actress being injured..."),
 
             new DialogueLine("Faith", "Faith_cropped",
@@ -90,7 +90,7 @@ public class OpeningUIManager : MonoBehaviour
             new DialogueLine("", "",
                 "Awed by Faith's determination, you stood in silence. Eyes fixated on her."),
 
-            new DialogueLine("Faith", "Faith_cropped",
+            new DialogueLine("Faith", "Surprised_Faith",
                 "What are you guys standing there for? You guys weren't hired to just pose there!"),
 
             new DialogueLine("Mouse", "Neautral_MOUSE",
@@ -105,7 +105,7 @@ public class OpeningUIManager : MonoBehaviour
             new DialogueLine("Mouse", "Neautral_MOUSE",
                 "Same as Lizzy's world."),
 
-            new DialogueLine("Faith", "Faith_cropped",
+            new DialogueLine("Faith", "Surprised_Faith",
                 "Chop chop!"),
 
             new DialogueLine("Mouse", "SURPRISED_MOUSE",
