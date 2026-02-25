@@ -1,0 +1,32 @@
+﻿{
+    "sceneName": "05_Chapter1",
+    "saveLabel": "05_Chapter1 - 00:01:57",
+    "totalPlaytimeSeconds": 117,
+    "realWorldUnixSeconds": 1771689403,
+    "playerName": "Charlie",
+    "selectedCharacterIndex": 1,
+    "objectivePayloadJson": "{\"profileKey\":\"default\",\"context\":1,\"currentIndex\":1,\"battleKeys\":[],\"battleValues\":[],\"contextKeys\":[\"default|Hub\",\"default|Chapter1\"],\"contextCurrentIndex\":[2,1],\"ctxOwner\":[],\"ctxKey\":[],\"ctxVal\":[]}",
+    "rewardPayloadJson": "{\"unlockedRewards\":[],\"pendingRewards\":[]}",
+    "player": {
+        "px": 2863.497802734375,
+        "py": 85.28173065185547,
+        "pz": -351.69268798828127,
+        "rx": 0.0,
+        "ry": 8.486865043640137,
+        "rz": 0.0
+    },
+    "host": {
+        "px": 2866.530029296875,
+        "py": 93.00900268554688,
+        "pz": -328.5400085449219,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+    },
+    "objects": [
+        {
+            "id": "Host",
+            "payload": "{\"entries\":[{\"type\":\"TransformStateSaveable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\",\"state\":\"{\\\"px\\\":2866.530029296875,\\\"py\\\":93.00900268554688,\\\"pz\\\":-328.5400085449219,\\\"rx\\\":0.0,\\\"ry\\\":0.0,\\\"rz\\\":0.0}\"}]}"
+        }
+    ]
+}

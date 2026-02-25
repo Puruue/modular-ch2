@@ -1,0 +1,27 @@
+﻿{
+    "sceneName": "04_Gamehub",
+    "saveLabel": "04_Gamehub - 00:06:01",
+    "totalPlaytimeSeconds": 361,
+    "realWorldUnixSeconds": 1771792036,
+    "playerName": "Charlieaa",
+    "selectedCharacterIndex": 1,
+    "objectivePayloadJson": "{\"profileKey\":\"default\",\"context\":0,\"currentIndex\":2,\"battleKeys\":[],\"battleValues\":[],\"contextKeys\":[\"default|Hub\"],\"contextCurrentIndex\":[2],\"ctxOwner\":[],\"ctxKey\":[],\"ctxVal\":[]}",
+    "rewardPayloadJson": "{\"unlockedRewards\":[\"CH2_COMPLETE\",\"CompleteAssessment2\",\"CH1_COMPLETE\",\"CompleteAssessment1\"],\"pendingRewards\":[]}",
+    "player": {
+        "px": -0.33764225244522097,
+        "py": -2.8685009479522707,
+        "pz": 20.385156631469728,
+        "rx": 0.0,
+        "ry": 0.04814780130982399,
+        "rz": 0.0
+    },
+    "host": {
+        "px": 0.0,
+        "py": 0.0,
+        "pz": 0.0,
+        "rx": 0.0,
+        "ry": 0.0,
+        "rz": 0.0
+    },
+    "objects": []
+}
