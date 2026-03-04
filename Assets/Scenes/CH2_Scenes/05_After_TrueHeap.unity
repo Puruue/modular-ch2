@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Proceed to Assessment
+  m_text: Check out Faith's Props
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 05cd71f9851a182408d79619aa43de8d, type: 2}
   m_sharedMaterial: {fileID: -6108617098241288547, guid: 05cd71f9851a182408d79619aa43de8d, type: 2}
@@ -397,11 +397,12 @@ MonoBehaviour:
     prioritization of the higher page number.
 
 
-    Let''s try and test now your
-    skills in organizing through prioritization and structure.
+    You and Mouse look for more of
+    Faith''s stuff to organize. In some way, you end up in Faith''s storages.
 
 
-    Take HEAP away!'
+    "Are
+    these things cluttered around are... props?"'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 05cd71f9851a182408d79619aa43de8d, type: 2}
   m_sharedMaterial: {fileID: -6108617098241288547, guid: 05cd71f9851a182408d79619aa43de8d, type: 2}
@@ -1996,10 +1997,12 @@ MonoBehaviour:
   numbersContainer: {fileID: 0}
   numberButtonPrefab: {fileID: 8709056409677819625, guid: ebc6187757a283345970caf72bf30bc7, type: 3}
   statusText: {fileID: 0}
-  dialogueManager: {fileID: 424458968}
-  proceedPanel: {fileID: 954166813}
+  continuePrompt: {fileID: 0}
   instructionPanel: {fileID: 0}
   swapAnimDuration: 0.28
+  completionPanel: {fileID: 0}
+  gameTimer: {fileID: 0}
+  proceedPanel: {fileID: 954166813}
   useEaseInOut: 1
   blockInputDuringSwap: 1
 --- !u!114 &1930576185
@@ -2033,7 +2036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2017598656
 RectTransform:
   m_ObjectHideFlags: 0

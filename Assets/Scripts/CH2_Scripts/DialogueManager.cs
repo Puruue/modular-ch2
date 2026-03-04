@@ -12,12 +12,14 @@ public class DialogueLine
     public string speaker;
     public string portraitName;
     public string text;
+    public string backgroundName;
 
-    public DialogueLine(string speaker, string portraitName, string text)
+    public DialogueLine(string speaker, string portraitName, string text, string backgroundName = "")
     {
         this.speaker = speaker;
         this.portraitName = portraitName;
         this.text = text;
+        this.backgroundName = backgroundName;
     }
 }
 
@@ -30,6 +32,12 @@ public class DialogueManager : MonoBehaviour
     public Image portraitImage;
     public Button dialogueButton;
     public GameObject gameplayRoot;
+
+    [Header("Background System")]
+    public Image backgroundImage;
+    public Sprite[] allBackgroundSprites;
+
+    private Dictionary<string, Sprite> backgroundDictionary = new Dictionary<string, Sprite>();
 
     [Header("All Available Portrait Sprites")]
     public Sprite[] allPortraitSprites;
@@ -50,15 +58,12 @@ public class DialogueManager : MonoBehaviour
     public bool allowButtonClick = true;
 
     [Header("Advance SFX")]
-    [Tooltip("Optional: sound played every time you advance a line.")]
     public AudioSource sfxSource;
-
     public AudioClip advanceSfx;
 
     [Range(0f, 1f)]
     public float advanceSfxVolume = 1f;
 
-    [Tooltip("If true, plays the SFX when StartDialogue shows the first line.")]
     public bool playSfxOnFirstLine = false;
 
     private readonly Dictionary<string, Sprite> portraitDictionary = new Dictionary<string, Sprite>(1024);
@@ -66,7 +71,6 @@ public class DialogueManager : MonoBehaviour
     private bool dialogueActive = false;
 
     private int _lastAdvanceFrame = -999;
-
     private bool _warnedMissingSfxOnce = false;
 
     private static readonly Regex _parenSuffix = new Regex(@"\s*\(\d+\)\s*$", RegexOptions.Compiled);
@@ -77,12 +81,14 @@ public class DialogueManager : MonoBehaviour
     {
         RefreshPortraitDictionary();
         EnsureSfxSourceReady();
+        BuildBackgroundDictionary();
     }
 
     private void OnEnable()
     {
         RefreshPortraitDictionary();
         EnsureSfxSourceReady();
+        BuildBackgroundDictionary();
     }
 
 #if UNITY_EDITOR
@@ -91,6 +97,7 @@ public class DialogueManager : MonoBehaviour
         if (!Application.isPlaying) return;
         RefreshPortraitDictionary();
         EnsureSfxSourceReady();
+        BuildBackgroundDictionary();
     }
 #endif
 
@@ -115,6 +122,7 @@ public class DialogueManager : MonoBehaviour
             dialoguePanel.SetActive(true);
 
         dialogueQueue.Clear();
+
         if (dialogueLines != null)
         {
             foreach (DialogueLine line in dialogueLines)
@@ -155,10 +163,44 @@ public class DialogueManager : MonoBehaviour
 
         DialogueLine currentLine = dialogueQueue.Dequeue();
 
-        if (characterNameText != null) characterNameText.text = currentLine.speaker;
-        if (dialogueText != null) dialogueText.text = currentLine.text;
+        if (characterNameText != null)
+            characterNameText.text = currentLine.speaker;
+
+        if (dialogueText != null)
+            dialogueText.text = currentLine.text;
 
         UpdatePortrait(currentLine.portraitName);
+        UpdateBackground(currentLine.backgroundName);
+    }
+
+    void UpdateBackground(string backgroundName)
+    {
+        if (backgroundImage == null) return;
+        if (string.IsNullOrEmpty(backgroundName)) return;
+
+        if (backgroundDictionary.TryGetValue(backgroundName, out Sprite bg))
+        {
+            backgroundImage.sprite = bg;
+        }
+        else if (verboseLogs)
+        {
+            Debug.LogWarning("Background not found: " + backgroundName);
+        }
+    }
+
+    void BuildBackgroundDictionary()
+    {
+        backgroundDictionary.Clear();
+
+        if (allBackgroundSprites == null) return;
+
+        foreach (Sprite bg in allBackgroundSprites)
+        {
+            if (bg == null) continue;
+
+            if (!backgroundDictionary.ContainsKey(bg.name))
+                backgroundDictionary.Add(bg.name, bg);
+        }
     }
 
     private void UpdatePortrait(string portraitName)
@@ -182,7 +224,7 @@ public class DialogueManager : MonoBehaviour
         else
         {
             if (verboseLogs)
-                Debug.LogWarning($"[DialogueManager] Portrait NOT found for request='{portraitName}'. Check typos or naming mismatch.");
+                Debug.LogWarning($"[DialogueManager] Portrait NOT found for request='{portraitName}'.");
 
             portraitImage.gameObject.SetActive(false);
         }
@@ -190,8 +232,6 @@ public class DialogueManager : MonoBehaviour
 
     private void EnsureSfxSourceReady()
     {
-        // Don’t create an AudioSource if they don't want SFX at all
-        // BUT: if they assigned a clip, we ensure there is a source.
         if (sfxSource == null && advanceSfx != null)
         {
             sfxSource = GetComponent<AudioSource>();
@@ -202,8 +242,6 @@ public class DialogueManager : MonoBehaviour
         {
             sfxSource.enabled = true;
             sfxSource.playOnAwake = false;
-
-            // Force 2D so it's always audible regardless of listener position
             sfxSource.spatialBlend = 0f;
         }
     }
@@ -215,7 +253,7 @@ public class DialogueManager : MonoBehaviour
             if (verboseLogs && !_warnedMissingSfxOnce)
             {
                 _warnedMissingSfxOnce = true;
-                Debug.LogWarning("[DialogueManager] advanceSfx is NOT assigned, so no SFX will play.");
+                Debug.LogWarning("[DialogueManager] advanceSfx is NOT assigned.");
             }
             return;
         }
@@ -223,19 +261,7 @@ public class DialogueManager : MonoBehaviour
         EnsureSfxSourceReady();
 
         if (sfxSource == null)
-        {
-            if (verboseLogs)
-                Debug.LogWarning("[DialogueManager] No AudioSource available for SFX. Assign sfxSource or keep advanceSfx assigned so it can auto-create one.");
             return;
-        }
-
-        // If AudioListener is missing, you won’t hear anything.
-        // (We don't spam this log; only when SFX tries to play.)
-        if (AudioListener.pause)
-        {
-            if (verboseLogs)
-                Debug.LogWarning("[DialogueManager] AudioListener.pause is TRUE (audio paused). SFX won't be audible.");
-        }
 
         sfxSource.PlayOneShot(advanceSfx, advanceSfxVolume);
     }
@@ -287,44 +313,11 @@ public class DialogueManager : MonoBehaviour
         if (!string.IsNullOrEmpty(norm) && portraitDictionary.TryGetValue(norm, out sprite))
             return true;
 
-        if (supportFlippedUnderscoreFormat)
-        {
-            string flipped = FlipUnderscoreOrder(fixedRequest);
-            if (!string.Equals(flipped, fixedRequest))
-            {
-                if (portraitDictionary.TryGetValue(flipped, out sprite))
-                    return true;
-
-                string normFlipped = NormalizeKey(flipped);
-                if (!string.IsNullOrEmpty(normFlipped) && portraitDictionary.TryGetValue(normFlipped, out sprite))
-                    return true;
-            }
-        }
-
-        if (supportAllCapsCharacterFormat)
-        {
-            string capsRemap = RemapAllCapsCharacter(fixedRequest);
-            if (!string.Equals(capsRemap, fixedRequest))
-            {
-                if (portraitDictionary.TryGetValue(capsRemap, out sprite))
-                    return true;
-
-                string normCaps = NormalizeKey(capsRemap);
-                if (!string.IsNullOrEmpty(normCaps) && portraitDictionary.TryGetValue(normCaps, out sprite))
-                    return true;
-            }
-        }
-
-        string stripped = StripSuffixes(fixedRequest);
-        string normStripped = NormalizeKey(stripped);
-        if (!string.IsNullOrEmpty(normStripped) && portraitDictionary.TryGetValue(normStripped, out sprite))
-            return true;
-
-        if (allowContainsFallback && !string.IsNullOrEmpty(normStripped))
+        if (allowContainsFallback && !string.IsNullOrEmpty(norm))
         {
             foreach (var kvp in portraitDictionary)
             {
-                if (kvp.Key.Contains(normStripped))
+                if (kvp.Key.Contains(norm))
                 {
                     sprite = kvp.Value;
                     return true;
@@ -337,7 +330,7 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerable<string> BuildKeysForSpriteName(string spriteName)
     {
-        string fixedName = autoFixCommonTypos ? ApplyCommonTypoFixes(spriteName) : spriteName;
+        string fixedName = autoFixCommonTypoFixes(spriteName);
 
         yield return fixedName;
 
@@ -346,106 +339,16 @@ public class DialogueManager : MonoBehaviour
 
         string norm = NormalizeKey(fixedName);
         if (!string.IsNullOrEmpty(norm)) yield return norm;
-
-        string normStripped = NormalizeKey(stripped);
-        if (!string.IsNullOrEmpty(normStripped)) yield return normStripped;
-
-        string noDigits = _trailingDigits.Replace(stripped, "");
-        string normNoDigits = NormalizeKey(noDigits);
-        if (!string.IsNullOrEmpty(normNoDigits)) yield return normNoDigits;
-
-        string aliasFlip = FlipUnderscoreOrder(fixedName);
-        if (!string.Equals(aliasFlip, fixedName))
-        {
-            yield return aliasFlip;
-            string normAliasFlip = NormalizeKey(aliasFlip);
-            if (!string.IsNullOrEmpty(normAliasFlip)) yield return normAliasFlip;
-        }
-
-        string aliasCaps = RemapAllCapsCharacter(fixedName);
-        if (!string.Equals(aliasCaps, fixedName))
-        {
-            yield return aliasCaps;
-            string normAliasCaps = NormalizeKey(aliasCaps);
-            if (!string.IsNullOrEmpty(normAliasCaps)) yield return normAliasCaps;
-        }
     }
-
-    // =========================
-    // Typo Fixes
-    // =========================
 
     private string ApplyCommonTypoFixes(string s)
     {
         if (string.IsNullOrWhiteSpace(s)) return s;
 
-        // "neautral" -> "neutral"
         s = Regex.Replace(s, "neautral", "neutral", RegexOptions.IgnoreCase);
 
         return s;
     }
-
-    // =========================
-    // Alias Helpers
-    // =========================
-
-    private string FlipUnderscoreOrder(string s)
-    {
-        if (string.IsNullOrWhiteSpace(s)) return s;
-
-        var parts = s.Split('_');
-        if (parts.Length != 2) return s;
-
-        string a = parts[0].Trim();
-        string b = parts[1].Trim();
-
-        if (IsKnownCharacterToken(b))
-        {
-            string charName = ToTitleCaseToken(b);
-            return $"{charName}_{a}";
-        }
-
-        return s;
-    }
-
-    private string RemapAllCapsCharacter(string s)
-    {
-        if (string.IsNullOrWhiteSpace(s)) return s;
-
-        var parts = s.Split('_');
-        if (parts.Length != 2) return s;
-
-        string a = parts[0].Trim();
-        string b = parts[1].Trim();
-
-        if (IsKnownCharacterToken(a))
-        {
-            string charName = ToTitleCaseToken(a);
-            string mood = b.Length > 0 ? char.ToUpper(b[0]) + b.Substring(1).ToLowerInvariant() : b;
-            return $"{charName}_{mood}";
-        }
-
-        return s;
-    }
-
-    private bool IsKnownCharacterToken(string token)
-    {
-        if (string.IsNullOrWhiteSpace(token)) return false;
-
-        return token.Equals("mouse", System.StringComparison.OrdinalIgnoreCase) ||
-               token.Equals("faith", System.StringComparison.OrdinalIgnoreCase);
-    }
-
-    private string ToTitleCaseToken(string token)
-    {
-        token = token.Trim();
-        if (token.Length == 0) return token;
-        return char.ToUpper(token[0]) + token.Substring(1).ToLowerInvariant();
-    }
-
-    // =========================
-    // Normalization
-    // =========================
 
     private string StripSuffixes(string s)
     {
@@ -467,11 +370,19 @@ public class DialogueManager : MonoBehaviour
         s = s.ToLowerInvariant();
 
         var sb = new StringBuilder(s.Length);
+
         foreach (char c in s)
         {
             if (char.IsLetterOrDigit(c))
                 sb.Append(c);
         }
+
         return sb.ToString();
+    }
+
+    private string autoFixCommonTypoFixes(string s)
+    {
+        if (!autoFixCommonTypos) return s;
+        return ApplyCommonTypoFixes(s);
     }
 }

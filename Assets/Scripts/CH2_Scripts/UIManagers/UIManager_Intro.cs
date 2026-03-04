@@ -25,6 +25,9 @@ public class UIManager_Intro : MonoBehaviour
     [Header("Completion UI")]
     public GameObject completionPanel;
 
+    [Header("Timer")]
+    public GameTimer gameTimer;
+
     [Header("Proceed UI")]
     public GameObject proceedPanel;
 
@@ -35,6 +38,7 @@ public class UIManager_Intro : MonoBehaviour
     public bool blockInputDuringSwap = true;
 
     private bool _isSwapping = false;
+
 
     // Gameplay state
     private int selectedIndex = -1;
@@ -281,6 +285,9 @@ public class UIManager_Intro : MonoBehaviour
         if (completionPanel != null)
         {
             completionPanel.SetActive(true);
+
+            if (gameTimer != null)
+                gameTimer.StopTimer();
 
             CanvasGroup cg = completionPanel.GetComponent<CanvasGroup>();
             if (cg != null)

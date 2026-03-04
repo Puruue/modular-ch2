@@ -32,7 +32,7 @@ public class TrueHeapAfterUIManager : MonoBehaviour
         if (!sceneLoading && dialogueManager != null && !dialogueManager.IsDialogueActive())
         {
             sceneLoading = true;
-            SceneManager.LoadScene("CH2_TrueHeap_Assessment");
+            SceneManager.LoadScene("06_QuickSort");
         }
     }
 }

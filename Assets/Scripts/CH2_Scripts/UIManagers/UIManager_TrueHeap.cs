@@ -16,6 +16,9 @@ public class UIManager_TrueHeap : MonoBehaviour
     [Header("Completion UI")]
     public GameObject completionPanel;
 
+    [Header("Timer")]
+    public GameTimer gameTimer;
+
     [Header("Swap Animation")]
     [Tooltip("Seconds to animate a swap between two nodes.")]
     public float swapAnimDuration = 0.28f;
@@ -364,6 +367,9 @@ public class UIManager_TrueHeap : MonoBehaviour
         {
             completionPanel.SetActive(true);
 
+            if (gameTimer != null)
+                gameTimer.StopTimer();
+
             CanvasGroup cg = completionPanel.GetComponent<CanvasGroup>();
             if (cg != null)
                 cg.alpha = 1f;
@@ -419,7 +425,7 @@ public class UIManager_TrueHeap : MonoBehaviour
 
     public void OnGiveScripts()
     {
-        SceneManager.LoadScene("05_After_TrueHeap");
+        SceneManager.LoadScene("06_QuickSort");
     }
 
     void UpdateStatus()
