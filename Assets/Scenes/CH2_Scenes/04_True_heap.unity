@@ -1136,6 +1136,8 @@ MonoBehaviour:
   portraitImage: {fileID: 0}
   dialogueButton: {fileID: 0}
   gameplayRoot: {fileID: 1596348251}
+  backgroundImage: {fileID: 0}
+  allBackgroundSprites: []
   allPortraitSprites:
   - {fileID: 21300000, guid: 645998eb642e66343963171ebf88fc07, type: 3}
   - {fileID: 21300000, guid: 9317092641f3f754d8af7913c89bc123, type: 3}
