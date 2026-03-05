@@ -73,8 +73,7 @@ public class UIManager_TrueHeap : MonoBehaviour
         // --- TUTORIAL START ---
         if (tutorialPanel != null)
         {
-            tutorialPanel.SetActive(true);
-            tutorialActive = true;
+            tutorialActive = tutorialPanel.activeSelf;
         }
         else
         {
