@@ -266,6 +266,11 @@ public class DialogueManager : MonoBehaviour
         sfxSource.PlayOneShot(advanceSfx, advanceSfxVolume);
     }
 
+    public bool IsLastLine()
+    {
+        return dialogueQueue.Count == 1;
+    }
+
     private void EndDialogue()
     {
         if (dialoguePanel != null)

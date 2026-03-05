@@ -2,16 +2,16 @@ using UnityEngine;
 
 public enum Route
 {
-    Neutral,
     Good,
-    Bad
+    Bad,
+    Neutral
 }
 
 public class StoryFlags : MonoBehaviour
 {
     public static StoryFlags instance;
 
-    public Route currentRoute = Route.Neutral;
+    public Route currentRoute;
 
     void Awake()
     {

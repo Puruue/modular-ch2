@@ -1,40 +1,67 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class FaithPostMinHeapDialogueManager : MonoBehaviour
 {
     public DialogueManager dialogueManager;
 
+    [Header("First Choice")]
+    public GameObject choiceAButton;
+    public GameObject choiceBButton;
+
+    [Header("Second Choice (Minigame Select)")]
+    public GameObject scriptGameButton;
+    public GameObject propsGameButton;
+
+    public GameObject continueButton;
+
+    private bool firstChoicesShown = false;
+    private bool secondChoicesShown = false;
+
     void Start()
     {
-        DialogueLine[] afterLines = {
+        // Hide everything at the start
+        choiceAButton.SetActive(false);
+        choiceBButton.SetActive(false);
+        scriptGameButton.SetActive(false);
+        propsGameButton.SetActive(false);
 
-            new DialogueLine("Faith", "Faith_cropped", "That... actually worked."),
-            new DialogueLine("Faith", "Faith_cropped", "Once the lightest box was on top, everything felt less unstable."),
-            new DialogueLine("Mouse", "Neautral_MOUSE", "Because you followed a rule."),
-            new DialogueLine("Faith", "Faith_cropped", "I didn’t try to fix everything at once."),
-            new DialogueLine("Mouse", "Excited_MOUSE", "And when each small part is correct..."),
-            new DialogueLine("Mouse", "Excited_MOUSE", "The whole structure becomes correct."),
-            new DialogueLine("Faith", "Faith_cropped", "So structure isn’t about controlling everything."),
-            new DialogueLine("Mouse", "Neautral_MOUSE", "Now imagine if instead we prioritize the largest first."),
-            new DialogueLine("Faith", "Faith_cropped", "Let the heaviest take control?"),
-            new DialogueLine("Mouse", "Excited_MOUSE", "That will be called a max-heap."),
-            new DialogueLine("Faith", "Faith_cropped", "Alright then. Let’s try organizing that way next.")
+        DialogueLine[] afterLines =
+        {
+            new DialogueLine("Mouse", "Mouse_Neutral", "Hey, Faith! What's next?"),
+            new DialogueLine("Faith", "Surprised_Faith", "You are done already?")
         };
 
         dialogueManager.StartDialogue(afterLines);
-        StartCoroutine(WaitForDialogueEnd());
     }
 
-    IEnumerator WaitForDialogueEnd()
+    void Update()
     {
-        while (dialogueManager.IsDialogueActive())
-            yield return null;
+        if (dialogueManager == null) return;
 
-        // Small pause for pacing (optional)
-        yield return new WaitForSeconds(1f);
+        string currentText = dialogueManager.dialogueText.text;
 
-        SceneManager.LoadScene("04_True_Heap");
+        // FIRST CHOICE
+        if (!firstChoicesShown && currentText.Contains("You are done already?"))
+        {
+            firstChoicesShown = true;
+
+            continueButton.SetActive(false);
+            dialogueManager.enabled = false;
+
+            choiceAButton.SetActive(true);
+            choiceBButton.SetActive(true);
+        }
+
+        // SECOND CHOICE (minigame select)
+        if (!secondChoicesShown && currentText.Contains("Which one would you like to do next?"))
+        {
+            secondChoicesShown = true;
+
+            continueButton.SetActive(false);
+            dialogueManager.enabled = false;
+
+            scriptGameButton.SetActive(true);
+            propsGameButton.SetActive(true);
+        }
     }
 }
