@@ -35,6 +35,10 @@ public class QuickSortManager : MonoBehaviour
 
     private bool sortingComplete = false;
 
+    // ✅ NEW UI STATE FLAGS
+    private bool completionVisible = false;
+    private bool proceedVisible = false;
+
     private List<int> numbers = new List<int>();
     private Stack<(int low, int high)> rangeStack = new Stack<(int, int)>();
 
@@ -57,7 +61,6 @@ public class QuickSortManager : MonoBehaviour
     {
         classificationPanel.SetActive(false);
 
-        // Ensure completion panel starts hidden
         if (completionCanvasGroup != null)
         {
             completionCanvasGroup.alpha = 0f;
@@ -77,9 +80,11 @@ public class QuickSortManager : MonoBehaviour
             proceedCanvasGroup.interactable = false;
             proceedCanvasGroup.blocksRaycasts = false;
         }
+
+        if (proceedPanel != null)
+            proceedPanel.SetActive(false);
     }
 
-    // ✅ Prevents duplicate numbers
     List<int> GenerateUniqueNumbers(int count, int min, int max)
     {
         HashSet<int> set = new HashSet<int>();
@@ -101,13 +106,21 @@ public class QuickSortManager : MonoBehaviour
                 timerText.text = timer.ToString("F2");
         }
 
-        if (sortingComplete && 
-            proceedCanvasGroup != null &&
-            proceedCanvasGroup.alpha == 0f &&
-            Keyboard.current != null &&
-            Keyboard.current.eKey.wasPressedThisFrame)
+        if (!sortingComplete || Keyboard.current == null)
+            return;
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            ShowProceedPanel();
+            // FIRST PRESS → show Proceed Panel
+            if (completionVisible && !proceedVisible)
+            {
+                ShowProceedPanel();
+            }
+            // SECOND PRESS → continue
+            else if (proceedVisible)
+            {
+                ProceedToNextScene();
+            }
         }
     }
 
@@ -169,7 +182,6 @@ public class QuickSortManager : MonoBehaviour
                 Random.Range(0, propDatabase.propSprites.Count)
             ];
 
-            // ✅ Correct indexing for subarray
             obj.GetComponent<PropItem>().Initialize(
                 numbers[currentLow + i],
                 randomSprite
@@ -336,6 +348,8 @@ public class QuickSortManager : MonoBehaviour
         if (finalTimeText != null)
             finalTimeText.text = "Final Time: " + timer.ToString("F2") + "s";
 
+        completionVisible = true;
+
         StartCoroutine(FadeInCompletion());
     }
 
@@ -361,6 +375,8 @@ public class QuickSortManager : MonoBehaviour
 
     void ShowProceedPanel()
     {
+        proceedVisible = true;
+        proceedPanel.SetActive(true);
         StartCoroutine(FadeInProceedPanel());
     }
 
@@ -371,7 +387,7 @@ public class QuickSortManager : MonoBehaviour
 
     public void ExitLevel()
     {
-        SceneManager.LoadScene("YourNextSceneName");
+        SceneManager.LoadScene("07_Ending");
     }
 
     IEnumerator FadeInProceedPanel()
@@ -396,7 +412,6 @@ public class QuickSortManager : MonoBehaviour
 
     void ProceedToNextScene()
     {
-        SceneManager.LoadScene("YourNextSceneName");
+        SceneManager.LoadScene("06_After_QuickSort");
     }
-
 }

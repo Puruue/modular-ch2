@@ -434,4 +434,10 @@ public class UIManager_TrueHeap : MonoBehaviour
         else
             statusText.text = "Compare the pages of scripts. If there is a higher page number below the orange page, select it. If not, confirm by selecting the orange page.";
     }
+
+    public void GoToAfterTrueHeap()
+    {
+        SceneManager.LoadScene("05_After_TrueHeap");
+    }
+    
 }

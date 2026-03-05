@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class TutorialSlideshow : MonoBehaviour
 {
@@ -14,13 +15,25 @@ public class TutorialSlideshow : MonoBehaviour
 
     private int currentPage = 0;
 
+    // Prevents input from triggering instantly when scene loads
+    private bool inputEnabled = false;
+
     void Start()
     {
         ShowPage(0);
+        StartCoroutine(EnableInputDelay());
+    }
+
+    IEnumerator EnableInputDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        inputEnabled = true;
     }
 
     void Update()
     {
+        if (!inputEnabled) return;
+
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
             GoBackScene();
@@ -75,6 +88,13 @@ public class TutorialSlideshow : MonoBehaviour
     public void StartGame()
     {
         heapMinigame.SetActive(true);
+
+        UIManager_TrueHeap manager = FindObjectOfType<UIManager_TrueHeap>();
+        if (manager != null)
+        {
+            manager.CloseTutorial();
+        }
+
         gameObject.SetActive(false);
     }
 

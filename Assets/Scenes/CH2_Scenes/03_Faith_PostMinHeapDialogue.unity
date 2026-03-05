@@ -2146,7 +2146,21 @@ MonoBehaviour:
   dialogueButton: {fileID: 1462339601}
   gameplayRoot: {fileID: 0}
   backgroundImage: {fileID: 1700389847}
-  allBackgroundSprites: []
+  allBackgroundSprites:
+  - {fileID: 21300000, guid: a2fce5f0c64397646bb8bf62bf88e113, type: 3}
+  - {fileID: 21300000, guid: a1e1001490fe58a4e9619764228251b7, type: 3}
+  - {fileID: 21300000, guid: 9accfc816dde7934aa722ea2568a1b3c, type: 3}
+  - {fileID: 21300000, guid: 873fd09354bb43d48874eae3ce586037, type: 3}
+  - {fileID: 21300000, guid: 370b481e074080440bb1952bad525b07, type: 3}
+  - {fileID: 21300000, guid: c0a1a187f68b593448476af60d880868, type: 3}
+  - {fileID: 21300000, guid: fbbd68ccae0cdab4bb2fba7b74380887, type: 3}
+  - {fileID: 21300000, guid: 6b701ca90dbb3c547af06620aad8017a, type: 3}
+  - {fileID: 21300000, guid: b6e534e0e8b082041a2109b37048e7ae, type: 3}
+  - {fileID: 21300000, guid: 5ba05aab317e0dc4789a2c367c85f5b1, type: 3}
+  - {fileID: 21300000, guid: 44066c45c3baf3f45aa1da0927d6d6d3, type: 3}
+  - {fileID: 21300000, guid: f19dae8ba1c4b0346b61bf65f37f94d9, type: 3}
+  - {fileID: 21300000, guid: 9f0da5ae167b7eb498acc286db0692fb, type: 3}
+  - {fileID: 21300000, guid: 333e0b16e227c104086dd921fd5bc00f, type: 3}
   allPortraitSprites:
   - {fileID: 21300000, guid: 645998eb642e66343963171ebf88fc07, type: 3}
   - {fileID: 21300000, guid: 9317092641f3f754d8af7913c89bc123, type: 3}
@@ -2844,7 +2858,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 370b481e074080440bb1952bad525b07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b6e534e0e8b082041a2109b37048e7ae, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

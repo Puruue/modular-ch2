@@ -11,27 +11,27 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CH2_Scenes/02_Faith_Opening.unity
     guid: f8aa2b4f2d2a26d4f93c5d5183fb15a6
-  - enabled: 0
-    path: Assets/Scenes/CH2_Scenes/03_Faith_IntroDialogue.unity
-    guid: 8534057f9ecf10e40b870050f7e362b4
-  - enabled: 1
-    path: Assets/Scenes/CH2_Scenes/03_Faith_PostMinHeapDialogue.unity
-    guid: a21a80aef23dc7447b8a8e4f9636fb76
   - enabled: 1
     path: Assets/Scenes/CH2_Scenes/03_Intro_game.unity
     guid: 2f28079fa5067a646986dc4e0e077ffd
+  - enabled: 1
+    path: Assets/Scenes/CH2_Scenes/03_Faith_PostMinHeapDialogue.unity
+    guid: a21a80aef23dc7447b8a8e4f9636fb76
   - enabled: 1
     path: Assets/Scenes/CH2_Scenes/04_True_heap.unity
     guid: 1a2d7c8002ccbfb4b9c9a181b4223dc2
   - enabled: 1
     path: Assets/Scenes/CH2_Scenes/05_After_TrueHeap.unity
-    guid: 33e5b8ee870e0514bbb6d228abb63fc9
+    guid: f3dafde323613ef428b2aa93c6570694
   - enabled: 1
     path: Assets/Scenes/CH2_Scenes/06_QuickSort.unity
     guid: f47e2a5ee2d4f2e41b5f2d587a8d33cc
   - enabled: 1
     path: Assets/Scenes/CH2_Scenes/06_After_QuickSort.unity
-    guid: ac35af2c6f3b8b04bb72d1390a49c30e
+    guid: f427fca27e0805d4da7826a5777f94cb
+  - enabled: 1
+    path: Assets/Scenes/CH2_Scenes/07_Ending.unity
+    guid: c70c7653397a04a48a4a39b67f41842f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

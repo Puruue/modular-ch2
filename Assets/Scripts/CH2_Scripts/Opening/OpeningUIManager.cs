@@ -39,7 +39,8 @@ public class OpeningUIManager : MonoBehaviour
             new DialogueLine(
                 "Mouse", 
                 "Mouse_Neutral",
-                "In Lizzy's world we organized memories and gave them to Lizzy with selection sort."
+                "In Lizzy's world we organized memories and gave them to Lizzy with selection sort.",
+                "bg_LizzyWorld"
             ),
 
             new DialogueLine(
@@ -51,49 +52,57 @@ public class OpeningUIManager : MonoBehaviour
             new DialogueLine(
                 "???",
                 "Faith_sil",
-                "So this is it."
+                "So this is it.",
+                "bg_frontdoor"
             ),
 
             new DialogueLine(
                 "",
                 "",
-                "You look around for the source of the voice."
+                "You look around for the source of the voice.",
+                "bg_frontdoor"
             ),
 
             new DialogueLine(
                 "???",
                 "Faith_sil",
-                "My own place. A new start."
+                "My own place. A new start.",
+                "bg_frontdoor"
             ),
 
             new DialogueLine(
                 "Mouse",
                 "Mouse_Surprised",
-                "Who is that?"
+                "Who is that?",
+                "bg_frontdoor"
             ),
 
             new DialogueLine(
                 "???",
                 "Faith_sil",
-                "I almost didn’t take the key."
+                "I almost didn’t take the key.",
+                "bg_frontdoor"
             ),
 
             new DialogueLine(
                 "Mouse",
                 "Mouse_Neutral",
-                "What key?"
+                "What key?",
+                "bg_frontdoor"
             ),
 
             new DialogueLine(
                 "???",
                 "Faith_sil",
-                "!?"
+                "!?",
+                "bg_frontdoor"
             ),
 
             new DialogueLine(
                 "???",
                 "Faith_sil",
-                "And you guys are?"
+                "And you guys are?",
+                "bg_frontdoor"
             ),
 
             new DialogueLine(
@@ -244,7 +253,7 @@ public class OpeningUIManager : MonoBehaviour
                 "Faith",
                 "Faith_cropped",
                 "Let's start with the boxes at the living room.",
-                "bg_livingroom"
+                "bg_cornerlivingroom"
             )
         };
 

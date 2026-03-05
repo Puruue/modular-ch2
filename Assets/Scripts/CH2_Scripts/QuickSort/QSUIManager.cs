@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class AfterTrueHeapManager : MonoBehaviour
+public class QSUIManager : MonoBehaviour
 {
     public DialogueManager dialogueManager;
 
@@ -31,10 +31,10 @@ public class AfterTrueHeapManager : MonoBehaviour
         DialogueLine[] reflectionLines =
         {
             new DialogueLine("Mouse", "Mouse_Neutral",
-                "She looks locked in right now."),
+                "Looks like she managed to get through organizing those props."),
 
-            new DialogueLine("Mouse", "Mouse_Sad",
-                "She must be feeling very nervous on the sudden role that was pitched to her.")
+            new DialogueLine("Mouse", "Mouse_Excited",
+                "That should help her stay focused for the audition.")
         };
 
         dialogueManager.StartDialogue(reflectionLines);
@@ -47,7 +47,7 @@ public class AfterTrueHeapManager : MonoBehaviour
         string currentText = dialogueManager.dialogueText.text;
 
         // Trigger first choices after the last intro line
-        if (!firstChoicesShown && currentText.Contains("She must be feeling very nervous on the sudden role that was pitched to her."))
+        if (!firstChoicesShown && currentText.Contains("That should help her stay focused for the audition."))
         {
             firstChoicesShown = true;
 
@@ -60,8 +60,8 @@ public class AfterTrueHeapManager : MonoBehaviour
         // Detect the final dialogue line from either branch
         if (!waitingForProceed)
         {
-            if (currentText.Contains("It'll lift some of the nervousness she has right now.") ||
-                currentText.Contains("Let's go organize the props next!"))
+            if (currentText.Contains("She looks a little more confident now.") ||
+                currentText.Contains("Let's see how things turn out for her."))
             {
                 waitingForProceed = true;
             }
@@ -82,10 +82,11 @@ public class AfterTrueHeapManager : MonoBehaviour
         waitingForProceed = false;
     }
 
-    // Proceed button → QuickSort scene
-    public void GoToQuickSort()
+    // Proceed button → Next scene
+    public void GoToNextScene()
     {
-        SceneManager.LoadScene("06_QuickSort");
+        SceneManager.LoadScene("07_AfterQuickSort"); 
+        // change this to whatever your next scene is
     }
 
     // Replay button → reload current scene
